@@ -1,10 +1,9 @@
 export class PolarField {
-  #size: number
-  #middle: number;
+  #size!: number
+  #middle!: number;
 
   constructor(size: number) {
-    this.#size = size;
-    this.#middle = this.#size / 2;
+    this.size = size;
   }
 
   get size() {

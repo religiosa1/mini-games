@@ -1,26 +1,21 @@
 import type { JSX } from "solid-js/jsx-runtime";
 import { useField } from "../contexts/Field";
-import { useRing } from "../contexts/Ring";
-
-
+import type { Ring } from "../models/Ring";
+import { For } from "solid-js";
+import { ObstacleElement } from "./ObstacleElement";
 
 
 interface RingProps {
-  index: number;
+  ring: Ring;
   inActive?: boolean;
   children?: JSX.Element;
 }
 export function RingElement(props: RingProps) {
   const field = useField();
-  const ring = useRing(props.index);
-
-  if (ring === undefined) {
-    return null;
-  }
 
   const ringPath = () => {
-    const radiusOutter = ring.radiusOutter;
-    const radiusInner = ring.radiusInner;
+    const radiusOutter = props.ring.radiusOutter;
+    const radiusInner = props.ring.radiusInner;
 
     return (
       `M ${field.middle} ${field.middle - radiusOutter}` +
@@ -36,7 +31,7 @@ export function RingElement(props: RingProps) {
 
   return (
     <g
-      class={`ring ${props.index % 2 ? "ring_even" : "ring_odd"}`}
+      class={`ring ${props.ring.index % 2 ? "ring_even" : "ring_odd"}`}
       classList={{ "ring_inactive": props.inActive }}
     >
       <path
@@ -45,6 +40,12 @@ export function RingElement(props: RingProps) {
         d={ringPath()}
       >
       </path>
+      <For each={props.ring.staticObstacles}>
+        {(obstacle) => <ObstacleElement ring={props.ring} {...obstacle} />}
+      </For>
+      <For each={props.ring.dynamicObstacles}>
+        {(obstacle) => <ObstacleElement dynamic ring={props.ring} {...obstacle} />}
+      </For>
       {props.children}
     </g>
   )
