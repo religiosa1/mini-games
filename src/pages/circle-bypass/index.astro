@@ -1,0 +1,18 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { CircleBypass } from "./CircleBypass";
+---
+
+<Layout title="Mini-games / Circle bypass">
+	<main>
+		<h1>Circle bypass</h1>
+		<p>
+			Mass Effect 1 inspired circle bypass (used there in decryption/hacking)
+		</p>
+		<p>
+			Move the cursor around the moving and static obstacles in, advancing it
+			forward until you reach the center.
+		</p>
+		<CircleBypass client:load />
+	</main>
+</Layout>

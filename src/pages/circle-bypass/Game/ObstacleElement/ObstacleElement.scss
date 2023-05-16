@@ -1,0 +1,16 @@
+.CircleBypassGame {
+  .obstacle {
+    fill: #a61e1e;
+    stroke: #772029;
+    stroke-width: 2px;
+  }
+
+  .obstacle_dynamic {
+    fill: #fd7113;
+    stroke: #a35420;
+  }
+
+  .obstacle:hover {
+    fill: #00FF00;
+  }
+}

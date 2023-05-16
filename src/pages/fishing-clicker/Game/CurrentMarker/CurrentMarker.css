@@ -1,0 +1,8 @@
+.fishing-clicker-game__current-marker {
+  position: absolute;
+  width: 10px;
+  height: 40px;
+  display: flex;
+}
+
+.fishing-clicker-game__current-marker-arrow {}

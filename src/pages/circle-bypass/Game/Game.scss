@@ -1,0 +1,30 @@
+.CircleBypassGame {
+  --clr-bg: #0d1444;
+  --clr-dark: #090e58;
+  --clr-light: #0b315f;
+  --clr-inactive: #052750;
+  --clr-border: #445f83;
+  max-width: 400px;
+
+  .center-section {
+    fill: var(--clr-bg);
+  }
+
+  .ring .ring-path {
+    fill: var(--clr-light);
+    stroke: var(--clr-border);
+    stroke-width: 2px;
+  }
+
+  .ring_even .ring-path {
+    fill: var(--clr-dark);
+  }
+
+  .ring_inactive .ring-path {
+    fill: var(--clr-inactive);
+  }
+
+  .ring:hover .ring-path {
+    fill: #FF00FF;
+  }
+}

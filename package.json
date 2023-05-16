@@ -7,9 +7,14 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "vitest"
   },
   "dependencies": {
-    "astro": "^2.4.1"
+    "@astrojs/solid-js": "^2.1.1",
+    "astro": "^2.4.1",
+    "sass": "^1.62.1",
+    "solid-js": "^1.7.5",
+    "vitest": "^0.31.0"
   }
 }

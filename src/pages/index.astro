@@ -1,35 +1,31 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Collection of mini games">
 	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
+		<h1>Collection of mini games</h1>
 		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+			This is a collection of different mini-games, that can be encountered in
+			computer games, such as lock-picking, fishing, hacking, etc. ported to
+			web-technology, because it's fun.
 		</p>
 		<ul role="list" class="link-card-grid">
 			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
+				href="./circle-bypass"
+				title="Circle bypass"
+				body="Mass Effect 1 inspired circle bypass (used there in decryption/hacking)"
 			/>
 			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
+				href="./fishing-clicker"
+				title="Fishing clicker"
+				body="Wartales-like clicker meter (used there in the fishing mini-game)"
 			/>
 			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
+				href="./lock-picking"
+				title="Easy lock-picking"
+				body="Skyrim/wartales like lockpicking mini-game"
 			/>
 		</ul>
 	</main>

@@ -1,0 +1,13 @@
+.fishing-clicker-game {
+  position: relative;
+  display: block;
+}
+
+.fishing-clicker-game__scale {
+  display: block;
+  height: 10px;
+  background: linear-gradient(to right, red 30%,
+      transparent 30%,
+      transparent 70%,
+      red 70%);
+}
