@@ -1,6 +1,10 @@
 import { randomInRange } from "src/utils/randomInRange";
 import { PolarField } from "./PolarField";
 import type { Obstacle } from "./Obstacle";
+import { RangeRandom } from "src/utils/RangeRandom";
+
+const obstacleGap = PolarField.degToRad(10);
+
 export class Ring {
   #centerSectionGap = 132;
   #ringThickness = 60;
@@ -31,13 +35,20 @@ export class Ring {
   }
 
   static generateObstacles(obstPerRing: number): Obstacle[] {
-    return Array.from({ length: obstPerRing }, () => {
-      return {
-        // TODO учитывать уже созданные объекты
-        coord: randomInRange(0, Math.PI * 2),
-        // Скейлить в зависимости от индекса кольца
-        size: PolarField.degToRad(randomInRange(12, 18)),
-      };
-    });
+    const circleRange = new RangeRandom(0, Math.PI * 2);
+    const obstacles: Obstacle[] = [];
+
+    for (let i = 0; i < obstPerRing; i++) {
+      try {
+        // TODO Скейлить в зависимости от индекса кольца
+        const size = PolarField.degToRad(randomInRange(12, 18));
+        const [coord, coordEnd] = circleRange.randomRange(size);
+        circleRange.exclude(coord - obstacleGap, coordEnd + obstacleGap);
+        obstacles.push({ size, coord });
+        // TODO making it circular?..
+      } catch (e) { break; }
+    }
+
+    return obstacles;
   }
 }
