@@ -1,4 +1,4 @@
-export interface Obstacle {
+export interface ObstacleModel {
   coord: number;
   size: number;
 }

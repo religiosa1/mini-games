@@ -1,15 +1,15 @@
-import type { Obstacle } from "../models/Obstacle";
-import { useField } from "../contexts/Field";
-import "./ObstacleElement.scss";
-import type { Ring } from "../models/Ring";
+import { useField } from "../../contexts/Field";
+import type { ObstacleModel } from "../../models/ObstacleModel";
+import type { RingModel } from "../../models/RingModel";
+import "./Obstacle.scss";
 
-interface ObstacleProps extends Obstacle {
-  ring: Ring;
+interface ObstacleProps extends ObstacleModel {
+  ring: RingModel;
   coord: number;
   size: number;
   dynamic?: boolean;
 }
-export function ObstacleElement(props: ObstacleProps) {
+export function Obstacle(props: ObstacleProps) {
   const field = useField();
 
   if (props.ring === undefined) {

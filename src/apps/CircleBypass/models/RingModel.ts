@@ -1,17 +1,17 @@
 import { randomInRange } from "src/utils/randomInRange";
 import { PolarField } from "./PolarField";
-import type { Obstacle } from "./Obstacle";
+import type { ObstacleModel } from "./ObstacleModel";
 import { CircularRangeRandom } from "./CircularRangeRandom";
 
 const obstacleGap = PolarField.degToRad(10);
 
-export class Ring {
+export class RingModel {
   #centerSectionGap = 132;
   #ringThickness = 60;
   #gap = 12;
 
-  staticObstacles!: Obstacle[];
-  dynamicObstacles!: Obstacle[];
+  staticObstacles!: ObstacleModel[];
+  dynamicObstacles!: ObstacleModel[];
 
   constructor(
     public index: number,
@@ -22,8 +22,8 @@ export class Ring {
   }
 
   regenerateObstacles() {
-    this.staticObstacles = Ring.generateObstacles(this.nStaticObstacles);
-    this.dynamicObstacles = Ring.generateObstacles(this.nDynamicObstacles);
+    this.staticObstacles = RingModel.generateObstacles(this.nStaticObstacles);
+    this.dynamicObstacles = RingModel.generateObstacles(this.nDynamicObstacles);
   }
 
   get radiusInner() {
@@ -34,9 +34,9 @@ export class Ring {
     return this.radiusInner + this.#ringThickness;
   }
 
-  static generateObstacles(obstPerRing: number): Obstacle[] {
+  static generateObstacles(obstPerRing: number): ObstacleModel[] {
     const circleRange = new CircularRangeRandom(0, Math.PI * 2);
-    const obstacles: Obstacle[] = [];
+    const obstacles: ObstacleModel[] = [];
 
     for (let i = 0; i < obstPerRing; i++) {
       try {

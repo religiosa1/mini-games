@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { PolarField } from "../PolarField";
 
-
 describe("PolarField", () => {
   it("converts degrees to radian", () => {
     expect(PolarField.degToRad(0)).toBeCloseTo(0);
