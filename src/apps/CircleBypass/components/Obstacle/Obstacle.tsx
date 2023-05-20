@@ -1,6 +1,6 @@
-import { useField } from "../../contexts/Field";
-import type { ObstacleModel } from "../../models/ObstacleModel";
-import type { RingModel } from "../../models/RingModel";
+import { useField } from "~/apps/CircleBypass/contexts/Field";
+import type { ObstacleModel } from "~/apps/CircleBypass/models/ObstacleModel";
+import type { RingModel } from "~/apps/CircleBypass/models/RingModel";
 import "./Obstacle.scss";
 
 interface ObstacleProps extends ObstacleModel {
