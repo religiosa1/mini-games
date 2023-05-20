@@ -1,11 +1,11 @@
-import { useField } from "~/apps/CircleBypass/contexts/Field";
+import { useFieldStore } from "~/apps/CircleBypass/contexts/FieldStore";
 import "./Countdown.scss";
 
 interface CountdownProps {
   value: number;
 }
 export function Countdown(props: CountdownProps) {
-  const field = useField();
+  const { field } = useFieldStore();
 
   const seconds = () => Math.floor(props.value / 1000).toFixed(2);
 

@@ -1,9 +1,9 @@
 import { randomInRange } from "src/utils/randomInRange";
-import { PolarField } from "./PolarField";
 import type { ObstacleModel } from "./ObstacleModel";
 import { CircularRangeRandom } from "./CircularRangeRandom";
+import { degToRad } from "~/utils/angle";
 
-const obstacleGap = PolarField.degToRad(10);
+const obstacleGap = degToRad(10);
 
 export class RingModel {
   #centerSectionGap = 132;
@@ -41,7 +41,7 @@ export class RingModel {
     for (let i = 0; i < obstPerRing; i++) {
       try {
         // TODO Скейлить в зависимости от индекса кольца
-        const size = PolarField.degToRad(randomInRange(12, 18));
+        const size = degToRad(randomInRange(12, 18));
         const [coord, coordEnd] = circleRange.randomRange(size);
         circleRange.exclude(coord - obstacleGap, coordEnd + obstacleGap);
         obstacles.push({ size, coord });

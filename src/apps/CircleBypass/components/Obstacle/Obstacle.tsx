@@ -1,4 +1,4 @@
-import { useField } from "~/apps/CircleBypass/contexts/Field";
+import { useFieldStore } from "~/apps/CircleBypass/contexts/FieldStore";
 import type { ObstacleModel } from "~/apps/CircleBypass/models/ObstacleModel";
 import type { RingModel } from "~/apps/CircleBypass/models/RingModel";
 import "./Obstacle.scss";
@@ -10,7 +10,7 @@ interface ObstacleProps extends ObstacleModel {
   dynamic?: boolean;
 }
 export function Obstacle(props: ObstacleProps) {
-  const field = useField();
+  const { field } = useFieldStore();
 
   if (props.ring === undefined) {
     return null;
