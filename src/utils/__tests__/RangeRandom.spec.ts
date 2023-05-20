@@ -107,6 +107,32 @@ describe("RangeRandom", () => {
     });
   });
 
-  describe.todo("randomizing");
+  describe("randomizing", () => {
+    it("generates random number in requested range", () => {
+      const rr = new RangeRandom(0, 10);
+      rr.exclude(0, 5);
+      const randomN = Array.from({ length: 10e3 }, () => rr.random());
+      for (let i = 0; i < randomN.length; i++) {
+        const r = randomN[i]!;
+        if (r < 5 || r > 10) {
+          throw new Error(`random number ${i} out of range: ${r}`);
+        }
+      }
+    });
+
+    it("generates random range in requested range", () => {
+      const rr = new RangeRandom(0, 10);
+      rr.exclude(0, 5);
+      const randomN = Array.from({ length: 1 }, () => rr.randomRange(3));
+      for (let i = 0; i < randomN.length; i++) {
+        const [start, end] = randomN[i]!;
+        if (start < 5 || end > 10) {
+          throw new Error(`random number ${i} out of range: ${start}..${end}`);
+        }
+        expect(end - start).toBeCloseTo(3);
+      }
+    });
+
+  });
 
 });

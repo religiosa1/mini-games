@@ -37,12 +37,20 @@ export class RangeRandom {
     }
   }
 
+  get validRangesStart(): number | undefined {
+    return this.#validRanges[0]?.[0];
+  }
+
+  get validRangesEnd(): number | undefined {
+    return this.#validRanges.at(-1)?.[1];
+  }
+
   exclude(eStart: number, eEnd: number) {
     // capping the values, so we don't go through the range
     eStart = Math.max(eStart, this.start);
     eEnd = Math.min(eEnd, this.end);
     if (eStart >= eEnd) {
-      throw new RangeError("Start and end range values overlap");
+      throw new RangeError(`Start and end range values overlap: ${eStart} ${eEnd}`);
     }
     const newValidRanges: Array<[number, number]> = [];
     for (const [rStart, rEnd] of this.#validRanges) {
@@ -90,18 +98,39 @@ export class RangeRandom {
   }
 
   random(): number {
-    const [start, end] = this.#validRanges[Math.floor(Math.random() * this.#validRanges.length)]!;
-    return Math.random() * (end - start) + start;
+    return RangeRandom.randomInRange(...this.#validRanges);
   }
 
   randomRange(size: number): [start: number, end: number] {
-    const applicableRanges = this.#validRanges.filter(([start, stop]) => stop - start >= size);
+    const applicableRanges = this.getApplicableRanges(size);
     if (!applicableRanges.length) {
-      throw new Error("Not enough size in range set to accomodate the range of requested size");
+      throw new Error(
+        "Not enough size in range set to accomodate the range of requested size: " +
+        `${size} ${JSON.stringify(applicableRanges)}`
+      );
     }
-    const [start, end] = applicableRanges[Math.floor(Math.random() * applicableRanges.length)]!;
-    const endOfRandom = end - size;
-    const randomRangeStart = Math.random() * (endOfRandom - start) + start;
-    return [randomRangeStart, randomRangeStart + size];
+    const rangeWithShift = applicableRanges.map(([start, end]) => [start, end - size] as const);
+    const start = RangeRandom.randomInRange(...rangeWithShift);
+    return [start, start + size];
+  }
+
+  protected getApplicableRanges(size: number): Array<[start: number, end: number]> {
+    return this.#validRanges.filter(([start, end]) => end - start >= size);
+  }
+
+
+  static randomInRange(...ranges: ReadonlyArray<readonly [start: number, end: number]>) {
+    const virtualRangeLength = ranges.reduce((acc, [start, end]) => acc + end - start, 0);
+    const virtualRand = Math.random() * virtualRangeLength;
+
+    let accumulatedLength = 0;
+    for (const [start, end] of ranges) {
+      const rangeLength = end - start;
+      if (virtualRand >= accumulatedLength && virtualRand < accumulatedLength + rangeLength) {
+        return virtualRand - accumulatedLength + start;
+      }
+      accumulatedLength += rangeLength;
+    }
+    throw new Error(`Error in virtual range calculation: ${JSON.stringify(ranges)} ${virtualRand} ${virtualRangeLength} ${accumulatedLength}`);
   }
 }
