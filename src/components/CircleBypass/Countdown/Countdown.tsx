@@ -1,4 +1,4 @@
-import { useField } from "../../contexts/Field";
+import { useField } from "../contexts/Field";
 import "./Countdown.scss";
 
 interface CountdownProps {

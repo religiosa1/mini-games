@@ -1,6 +1,6 @@
 import type { JSX } from "solid-js/jsx-runtime";
-import { useField } from "../contexts/Field";
-import type { Ring } from "../models/Ring";
+import { useField } from "./contexts/Field";
+import type { Ring } from "./models/Ring";
 import { For } from "solid-js";
 import { ObstacleElement } from "./ObstacleElement";
 

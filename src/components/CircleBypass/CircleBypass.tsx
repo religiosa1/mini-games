@@ -1,20 +1,17 @@
 import { For, createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
 import { RingElement } from "./RingElement";
-import { Ring } from "../models/Ring";
-import { FieldProvider } from "../contexts/Field";
-import { PolarField } from "../models/PolarField";
+import { Ring } from "./models/Ring";
+import { FieldProvider } from "./contexts/Field";
+import { PolarField } from "./models/PolarField";
 
-import "./Game.scss";
+import "./CircleBypass.scss";
 import { Countdown } from "./Countdown";
 
 const nRings = 4;
 const size = 1000;
 
-interface GameProps {
-  onGameEnd: (res: boolean) => void;
-}
-export function Game(props: GameProps) {
+export function CircleBypass() {
   const field = new PolarField(size);
   const [rings] = createStore({
     active: Array.from({ length: 4 }, (_, i) => new Ring(i, 3, 3)),

@@ -1,7 +1,7 @@
-import type { Obstacle } from "../../models/Obstacle";
-import { useField } from "../../contexts/Field";
+import type { Obstacle } from "../models/Obstacle";
+import { useField } from "../contexts/Field";
 import "./ObstacleElement.scss";
-import type { Ring } from "../../models/Ring";
+import type { Ring } from "../models/Ring";
 
 interface ObstacleProps extends Obstacle {
   ring: Ring;
