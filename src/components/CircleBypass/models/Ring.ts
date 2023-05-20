@@ -1,7 +1,7 @@
 import { randomInRange } from "src/utils/randomInRange";
 import { PolarField } from "./PolarField";
 import type { Obstacle } from "./Obstacle";
-import { RangeRandom } from "src/utils/RangeRandom";
+import { CircularRangeRandom } from "./CircularRangeRandom";
 
 const obstacleGap = PolarField.degToRad(10);
 
@@ -35,7 +35,7 @@ export class Ring {
   }
 
   static generateObstacles(obstPerRing: number): Obstacle[] {
-    const circleRange = new RangeRandom(0, Math.PI * 2);
+    const circleRange = new CircularRangeRandom(0, Math.PI * 2);
     const obstacles: Obstacle[] = [];
 
     for (let i = 0; i < obstPerRing; i++) {
@@ -45,8 +45,10 @@ export class Ring {
         const [coord, coordEnd] = circleRange.randomRange(size);
         circleRange.exclude(coord - obstacleGap, coordEnd + obstacleGap);
         obstacles.push({ size, coord });
-        // TODO making it circular?..
-      } catch (e) { break; }
+      } catch (e) {
+        console.log("Error during obstacle generation, probably out of available space", e);
+        break;
+      }
     }
 
     return obstacles;
