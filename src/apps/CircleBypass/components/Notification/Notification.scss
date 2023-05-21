@@ -18,11 +18,21 @@
 
   .notification_success {
     color: var(--clr-success, green);
-    box-shadow: 0 0 20px var(--clr-success, green);
+    animation: glow 1s ease-in-out forwards;
   }
 
   .notification_fail {
     color: var(--clr-danger, red);
-    box-shadow: 0 0 20px var(--clr-danger, red);
+    animation: glow 1s ease-in-out forwards;
+  }
+
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 0 currentColor;
+    }
+
+    100% {
+      box-shadow: 0 0 20px currentColor;
+    }
   }
 }
