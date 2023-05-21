@@ -24,14 +24,14 @@ export function Cursor(props: CursorProps) {
     );
   }
 
-  console.log("WTF", ring);
-
   if (!ring) {
     return null;
   }
 
   return (
     <path
+      data-angle={props.data.angle}
+      data-ring-index={props.data.ringIndex}
       class="cursor"
       d={d()}
     />

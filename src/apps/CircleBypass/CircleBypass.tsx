@@ -1,16 +1,42 @@
-import { For, createSignal } from "solid-js";
-import { createStore } from "solid-js/store";
+import { For, createEffect, createSignal } from "solid-js";
+import { createStore, produce } from "solid-js/store";
 import { Countdown } from "./components/Countdown";
 import { Ring } from "./components/Ring";
 import { Cursor } from "~/apps/CircleBypass/components/Cursor";
 import { FieldStore, FieldStoreProvider } from "~/apps/CircleBypass/contexts/FieldStore";
+import { degToRad } from "~/utils/angle";
 
 import "./CircleBypass.scss";
 
+const velocity = degToRad(0.035);
 
 export function CircleBypass() {
-  const [store] = createStore(new FieldStore());
-  const [timeLeft, setTimeLeft] = createSignal<number>(10_000);
+  const [store, setStore] = createStore(new FieldStore());
+  const [timeLeft, setTimeleft] = createSignal<number>(15_000);
+
+  createEffect(() => {
+    let previousTime = performance.now();
+    function step(time: DOMHighResTimeStamp) {
+      if (timeLeft() <= 0) {
+        return;
+      }
+      const elapsed = time - previousTime;
+      previousTime = time;
+      setStore(produce(store => {
+        store.activeRings.forEach((ring, index) => {
+          const getCoord = index % 2
+            ? (c: number) => c + velocity * elapsed
+            : (c: number) => c - velocity * elapsed
+          for (const o of ring.dynamicObstacles) {
+            o.coord = getCoord(o.coord);
+          }
+        });
+      }));
+      setTimeleft(v => v - elapsed);
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
 
   return (
     <FieldStoreProvider value={store}>

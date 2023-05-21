@@ -1,5 +1,5 @@
 import { createContext, useContext, JSX } from "solid-js";
-import { storify } from "~/apps/CircleBypass/contexts/storify";
+import { createMutable } from "solid-js/store";
 import { CursorModel } from "~/apps/CircleBypass/models/CursorModel";
 import { PolarField } from "~/apps/CircleBypass/models/PolarField";
 import { RingModel } from "~/apps/CircleBypass/models/RingModel";
@@ -11,9 +11,9 @@ export class FieldStore {
   static readonly nRings = 4;
 
   field = new PolarField(1000);
-  activeRings = Array.from({ length: FieldStore.nRings }, (_, i) => storify(new RingModel(i, 3, 3)));
-  pitRing = storify(new RingModel(nRings, 0, 0));
-  cursor = storify(new CursorModel(nRings + 1));
+  activeRings = Array.from({ length: FieldStore.nRings }, (_, i) => createMutable(new RingModel(i, 3, 3)));
+  pitRing = createMutable(new RingModel(nRings, 0, 0));
+  cursor = createMutable(new CursorModel(nRings + 1));
 
   @bind getRingByIndex(index: number): RingModel | undefined {
     if (index === this.activeRings.length + 1) {

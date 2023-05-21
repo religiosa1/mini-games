@@ -7,7 +7,7 @@ interface CountdownProps {
 export function Countdown(props: CountdownProps) {
   const { field } = useFieldStore();
 
-  const seconds = () => Math.floor(props.value / 1000).toFixed(2);
+  const seconds = () => Math.max(props.value / 1000, 0).toFixed(2);
 
   return (
     <text
