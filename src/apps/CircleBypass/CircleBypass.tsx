@@ -1,5 +1,10 @@
 import { Match, Show, Switch, createSignal } from "solid-js";
 import { GameStateEnum } from "~/models/GameStateEnum";
+import {
+  DifficultySettingsEnum,
+  DifficultySpecifier,
+  difficultySettings
+} from "~/apps/CircleBypass/models/DifficultySettings";
 import { Game } from "~/apps/CircleBypass/components/Game";
 import { Notification } from "~/apps/CircleBypass/components/Notification";
 import "./CircleBypass.scss";
@@ -7,6 +12,9 @@ import "./CircleBypass.scss";
 export function CircleBypass() {
   const [gameState, setGameState] = createSignal<GameStateEnum>(GameStateEnum.ready);
   const [timeoutDisable, setTimeoutDisable] = createSignal(false);
+  const [difficulty] = createSignal<DifficultySpecifier>(
+    difficultySettings[DifficultySettingsEnum.easy]
+  );
 
   function handleGameEnd(won: boolean) {
     setGameState(won ? GameStateEnum.won : GameStateEnum.lost);
@@ -23,7 +31,11 @@ export function CircleBypass() {
 
   return (
     <div class="circle-bypass">
-      <Game isRunning={gameState() === GameStateEnum.inProgress} onGameEnd={handleGameEnd} />
+      <Game
+        isRunning={gameState() === GameStateEnum.inProgress}
+        onGameEnd={handleGameEnd}
+        difficulty={difficulty()}
+      />
       <Show when={gameState() !== GameStateEnum.inProgress}>
         <button type="button" disabled={timeoutDisable()} class="circle-bypass__overlay" onClick={moveState}>
           <Switch>

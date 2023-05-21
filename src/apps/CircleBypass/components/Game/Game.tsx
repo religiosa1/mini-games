@@ -1,21 +1,23 @@
 import { For, createEffect, createSignal } from "solid-js";
 import { createStore, produce } from "solid-js/store";
+import { absRadian } from "~/utils/angle";
+import type { DifficultySpecifier } from "~/apps/CircleBypass/models/DifficultySettings";
 import { Countdown } from "~/apps/CircleBypass/components/Countdown";
 import { Ring } from "~/apps/CircleBypass/components/Ring";
 import { Cursor } from "~/apps/CircleBypass/components/Cursor";
 import { FieldStore, FieldStoreProvider } from "~/apps/CircleBypass/stores/FieldStore";
 import { useInputs } from "~/apps/CircleBypass/useInputs";
 import "./Game.scss";
-import { absRadian } from "~/utils/angle";
 
 const defaultTimeLeft = 15_000;
 
 interface GameProps {
   isRunning?: boolean;
   onGameEnd: (won: boolean) => void;
+  difficulty: DifficultySpecifier;
 }
 export function Game(props: GameProps) {
-  const [store, setStore] = createStore(new FieldStore(true));
+  const [store, setStore] = createStore(new FieldStore());
   const [timeLeft, setTimeleft] = createSignal<number>(defaultTimeLeft);
 
   const inputs = useInputs(() => !!props.isRunning);
@@ -35,8 +37,8 @@ export function Game(props: GameProps) {
       setStore(produce(store => {
         store.activeRings.forEach((ring, index) => {
           const getCoord = index % 2
-            ? (c: number) => c + store.velocity * elapsed
-            : (c: number) => c - store.velocity * elapsed
+            ? (c: number) => c - store.velocity * elapsed
+            : (c: number) => c + store.velocity * elapsed
           for (const o of ring.dynamicObstacles) {
             o.coord = absRadian(getCoord(o.coord));
           }
@@ -58,7 +60,7 @@ export function Game(props: GameProps) {
       requestAnimationFrame(step);
     }
     if (props.isRunning) {
-      setStore(new FieldStore());
+      setStore(new FieldStore(props.difficulty));
       setTimeleft(defaultTimeLeft);
       requestAnimationFrame(step);
     }

@@ -2,20 +2,26 @@ import { createContext, useContext, JSX } from "solid-js";
 import { createMutable } from "solid-js/store";
 import { bind } from "~/utils/bind";
 import { degToRad, absRadian } from "~/utils/angle";
+import { isRangeIntersection } from "~/utils/isRangeIntersection";
 import { CursorModel } from "~/apps/CircleBypass/models/CursorModel";
 import { PolarField } from "~/apps/CircleBypass/models/PolarField";
 import { RingModel } from "~/apps/CircleBypass/models/RingModel";
 import type { UserInput } from "~/apps/CircleBypass/models/UserInputs";
-import { isRangeIntersection } from "~/utils/isRangeIntersection";
+import type { DifficultySpecifier } from "~/apps/CircleBypass/models/DifficultySettings";
 
 export class FieldStore {
   static readonly nRings = 4;
   velocity = degToRad(0.035);
 
-  constructor(dummy = false) {
-    if (dummy) {
-      this.activeRings = Array.from({ length: FieldStore.nRings }, (_, i) => createMutable(new RingModel(i, 0, 0)));
-    }
+  constructor(specifier?: DifficultySpecifier) {
+    this.activeRings = Array.from(
+      { length: FieldStore.nRings },
+      (_, i) => createMutable(new RingModel(
+        i,
+        specifier?.[i]?.staticObstacles ?? 0,
+        specifier?.[i]?.dynamicObstacles ?? 0
+      ))
+    );
   }
 
   field = new PolarField(1000);

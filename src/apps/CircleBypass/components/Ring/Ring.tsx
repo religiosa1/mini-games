@@ -1,7 +1,7 @@
 import { For } from "solid-js";
 import type { JSX } from "solid-js/jsx-runtime";
-import { useFieldStore } from "~/apps/CircleBypass/stores/FieldStore";
 import type { RingModel } from "~/apps/CircleBypass/models/RingModel";
+import { useFieldStore } from "~/apps/CircleBypass/stores/FieldStore";
 import { Obstacle } from "~/apps/CircleBypass/components/Obstacle";
 import "./Ring.scss";
 
@@ -41,11 +41,11 @@ export function Ring(props: RingProps) {
       >
       </path>
       <g class="obstacles">
-        <For each={props.ring.staticObstacles}>
-          {(obstacle) => <Obstacle ring={props.ring} {...obstacle} />}
-        </For>
         <For each={props.ring.dynamicObstacles}>
           {(obstacle) => <Obstacle dynamic ring={props.ring} {...obstacle} />}
+        </For>
+        <For each={props.ring.staticObstacles}>
+          {(obstacle) => <Obstacle ring={props.ring} {...obstacle} />}
         </For>
       </g>
       {props.children}
