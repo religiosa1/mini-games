@@ -8,7 +8,7 @@ enum KeyMovementEnum {
 };
 
 const moveKeys: Record<UserInputTypeEnum, string[]> = {
-  [UserInputTypeEnum.advance]: ["Space", "KeyW", "Enter"],
+  [UserInputTypeEnum.advance]: ["Space", "KeyW", "Enter", "ArrowUp"],
   [UserInputTypeEnum.moveLeft]: ["KeyA", "ArrowLeft"],
   [UserInputTypeEnum.moveRight]: ["KeyD", "ArrowRight"],
 };

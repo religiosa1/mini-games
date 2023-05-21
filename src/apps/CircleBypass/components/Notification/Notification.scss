@@ -23,5 +23,6 @@
 
   .notification_fail {
     color: var(--clr-danger, red);
+    box-shadow: 0 0 20px var(--clr-danger, red);
   }
 }

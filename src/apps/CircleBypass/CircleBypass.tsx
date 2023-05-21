@@ -1,4 +1,4 @@
-import { Match, Switch, createSignal } from "solid-js";
+import { Match, Show, Switch, createSignal } from "solid-js";
 import { GameStateEnum } from "~/models/GameStateEnum";
 import { Game } from "~/apps/CircleBypass/components/Game";
 import { Notification } from "~/apps/CircleBypass/components/Notification";
@@ -19,25 +19,29 @@ export function CircleBypass() {
   }
 
   return (
-    <div class="circle-bypass" onClick={moveState}>
+    <div class="circle-bypass">
       <Game isRunning={gameState() === GameStateEnum.inProgress} onGameEnd={handleGameEnd} />
-      <Switch>
-        <Match when={gameState() === GameStateEnum.ready}>
-          <Notification>
-            <button type="button">Start decryption</button>
-          </Notification>
-        </Match>
-        <Match when={gameState() === GameStateEnum.lost}>
-          <Notification fail>
-            Decryption Failed
-          </Notification>
-        </Match>
-        <Match when={gameState() === GameStateEnum.won}>
-          <Notification success>
-            Override Succeeeded
-          </Notification>
-        </Match>
-      </Switch>
+      <Show when={gameState() !== GameStateEnum.inProgress}>
+        <button type="button" class="circle-bypass__overlay" onClick={moveState}>
+          <Switch>
+            <Match when={gameState() === GameStateEnum.ready}>
+              <Notification>
+                Start decryption
+              </Notification>
+            </Match>
+            <Match when={gameState() === GameStateEnum.lost}>
+              <Notification fail>
+                Decryption Failed
+              </Notification>
+            </Match>
+            <Match when={gameState() === GameStateEnum.won}>
+              <Notification success>
+                Override Succeeeded
+              </Notification>
+            </Match>
+          </Switch>
+        </button>
+      </Show>
     </div>
   )
 }

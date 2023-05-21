@@ -6,6 +6,7 @@ import { Cursor } from "~/apps/CircleBypass/components/Cursor";
 import { FieldStore, FieldStoreProvider } from "~/apps/CircleBypass/contexts/FieldStore";
 import { useInputs } from "~/apps/CircleBypass/useInputs";
 import "./Game.scss";
+import { absRadian } from "~/utils/angle";
 
 const defaultTimeLeft = 15_000;
 
@@ -14,7 +15,7 @@ interface GameProps {
   onGameEnd: (won: boolean) => void;
 }
 export function Game(props: GameProps) {
-  const [store, setStore] = createStore(new FieldStore());
+  const [store, setStore] = createStore(new FieldStore(true));
   const [timeLeft, setTimeleft] = createSignal<number>(defaultTimeLeft);
 
   const inputs = useInputs(() => !!props.isRunning);
@@ -37,13 +38,17 @@ export function Game(props: GameProps) {
             ? (c: number) => c + store.velocity * elapsed
             : (c: number) => c - store.velocity * elapsed
           for (const o of ring.dynamicObstacles) {
-            o.coord = getCoord(o.coord);
+            o.coord = absRadian(getCoord(o.coord));
           }
         });
         const inp = inputs.get();
         if (inp.length) {
           store.reduceInputs(inp, elapsed);
           inputs.clear();
+        }
+        if (store.isCusrorColliding()) {
+          store.cursor.angle = Math.PI * 0.5;
+          store.cursor.ringIndex = FieldStore.nRings;
         }
       }));
       setTimeleft(v => v - elapsed);

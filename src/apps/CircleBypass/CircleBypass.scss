@@ -8,4 +8,10 @@
   --clr-success: #2ec16d;
   max-width: 400px;
   position: relative;
+
+  .circle-bypass__overlay {
+    all: unset;
+    position: absolute;
+    inset: 0;
+  }
 }

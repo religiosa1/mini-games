@@ -6,10 +6,17 @@ import { CursorModel } from "~/apps/CircleBypass/models/CursorModel";
 import { PolarField } from "~/apps/CircleBypass/models/PolarField";
 import { RingModel } from "~/apps/CircleBypass/models/RingModel";
 import type { UserInput } from "~/apps/CircleBypass/models/UserInputs";
+import { isRangeIntersection } from "~/utils/isRangeIntersection";
 
 export class FieldStore {
   static readonly nRings = 4;
   velocity = degToRad(0.035);
+
+  constructor(dummy = false) {
+    if (dummy) {
+      this.activeRings = Array.from({ length: FieldStore.nRings }, (_, i) => createMutable(new RingModel(i, 0, 0)));
+    }
+  }
 
   field = new PolarField(1000);
   activeRings = Array.from({ length: FieldStore.nRings }, (_, i) => createMutable(new RingModel(i, 3, 3)));
@@ -34,6 +41,27 @@ export class FieldStore {
         this.cursor.angle = absRadian(this.cursor.angle - timeStep * this.velocity);
       }
     }
+  }
+
+  @bind isCusrorColliding(): boolean {
+    if (this.cursor.ringIndex >= FieldStore.nRings || this.cursor.ringIndex < 0) {
+      return false;
+    }
+    const ring = this.activeRings[this.cursor.ringIndex]!;
+    if (!ring) {
+      return false;
+    }
+    const coords = this.cursor.coords(ring);
+    for (const obstacle of [...ring.staticObstacles, ...ring.dynamicObstacles]) {
+      const isColliding = isRangeIntersection(
+        [obstacle.coord, obstacle.coord + obstacle.size].map(absRadian) as [number, number],
+        coords.map(absRadian) as [number, number],
+      );
+      if (isColliding) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 
