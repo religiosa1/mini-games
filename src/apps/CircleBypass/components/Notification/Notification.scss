@@ -1,0 +1,27 @@
+.circle-bypass {
+  .notification {
+    background:
+      #565656 radial-gradient(ellipse at center, var(--clr-black, black) 30%, transparent);
+    ;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    width: min-content;
+    min-width: 80%;
+    transform: translateY(-50%);
+    padding: 0.3em;
+  }
+
+  .notification_success {
+    color: var(--clr-success, green);
+    box-shadow: 0 0 20px var(--clr-success, green);
+  }
+
+  .notification_fail {
+    color: var(--clr-danger, red);
+  }
+}

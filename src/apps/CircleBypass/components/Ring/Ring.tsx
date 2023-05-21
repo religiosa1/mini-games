@@ -2,7 +2,8 @@ import { For } from "solid-js";
 import type { JSX } from "solid-js/jsx-runtime";
 import { useFieldStore } from "~/apps/CircleBypass/contexts/FieldStore";
 import type { RingModel } from "~/apps/CircleBypass/models/RingModel";
-import { Obstacle } from "./Obstacle";
+import { Obstacle } from "~/apps/CircleBypass/components/Obstacle";
+import "./Ring.scss";
 
 interface RingProps {
   ring: RingModel;

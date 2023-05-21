@@ -1,4 +1,4 @@
-const UserInputTypeEnum = Object.freeze({
+export const UserInputTypeEnum = Object.freeze({
   advance: "advance",
   moveLeft: "moveLeft",
   moveRight: "moveRight",

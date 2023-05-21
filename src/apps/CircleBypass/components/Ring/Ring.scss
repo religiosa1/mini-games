@@ -1,0 +1,19 @@
+.circle-bypass {
+  .ring .ring-path {
+    fill: var(--clr-light);
+    stroke: var(--clr-border);
+    stroke-width: 2px;
+  }
+
+  .ring_even .ring-path {
+    fill: var(--clr-dark);
+  }
+
+  .ring_inactive .ring-path {
+    fill: var(--clr-inactive);
+  }
+
+  .ring:hover .ring-path {
+    fill: #FF00FF;
+  }
+}
