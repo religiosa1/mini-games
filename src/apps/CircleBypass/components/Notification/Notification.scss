@@ -14,6 +14,9 @@
     min-width: 80%;
     transform: translateY(-50%);
     padding: 0.3em;
+    border-top: 1px;
+    border-bottom: 1px;
+    border-color: currentColor;
   }
 
   .notification_success {
