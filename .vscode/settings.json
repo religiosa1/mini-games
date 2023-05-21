@@ -4,5 +4,6 @@
   // https://github.com/microsoft/vscode/issues/85828
   "scss.lint.validProperties": [
     "alignment-baseline",
+    "dominant-baseline",
   ],
 }
