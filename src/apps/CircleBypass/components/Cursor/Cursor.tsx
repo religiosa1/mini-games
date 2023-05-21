@@ -7,15 +7,16 @@ interface CursorProps {
 }
 export function Cursor(props: CursorProps) {
   const { field, getRingByIndex } = useFieldStore();
-  const ring = getRingByIndex(props.data.ringIndex);
+  const ring = () => getRingByIndex(props.data.ringIndex);
 
   const d = () => {
-    if (!ring) {
+    const r = ring();
+    if (!r) {
       return "";
     }
-    const [topX, topY] = field.polarToSvg(props.data.angle, ring.radiusInner);
-    const [leftX, leftY] = field.polarToSvg(props.data.angle + CursorModel.width, ring.radiusOutter);
-    const [rightX, rightY] = field.polarToSvg(props.data.angle - CursorModel.width, ring.radiusOutter);
+    const [topX, topY] = field.polarToSvg(props.data.angle, r.radiusInner);
+    const [leftX, leftY] = field.polarToSvg(props.data.angle + CursorModel.width, r.radiusOutter);
+    const [rightX, rightY] = field.polarToSvg(props.data.angle - CursorModel.width, r.radiusOutter);
     return (
       `M ${topX} ${topY}` +
       `L ${leftX} ${leftY} ` +
