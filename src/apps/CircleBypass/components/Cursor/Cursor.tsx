@@ -1,4 +1,4 @@
-import { useFieldStore } from "~/apps/CircleBypass/contexts/FieldStore";
+import { useFieldStore } from "~/apps/CircleBypass/stores/FieldStore";
 import { CursorModel } from "~/apps/CircleBypass/models/CursorModel";
 import "./Cursor.scss";
 

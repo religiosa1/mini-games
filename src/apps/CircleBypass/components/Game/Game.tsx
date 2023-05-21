@@ -3,7 +3,7 @@ import { createStore, produce } from "solid-js/store";
 import { Countdown } from "~/apps/CircleBypass/components/Countdown";
 import { Ring } from "~/apps/CircleBypass/components/Ring";
 import { Cursor } from "~/apps/CircleBypass/components/Cursor";
-import { FieldStore, FieldStoreProvider } from "~/apps/CircleBypass/contexts/FieldStore";
+import { FieldStore, FieldStoreProvider } from "~/apps/CircleBypass/stores/FieldStore";
 import { useInputs } from "~/apps/CircleBypass/useInputs";
 import "./Game.scss";
 import { absRadian } from "~/utils/angle";

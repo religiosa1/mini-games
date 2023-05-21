@@ -1,4 +1,4 @@
-import { useFieldStore } from "~/apps/CircleBypass/contexts/FieldStore";
+import { useFieldStore } from "~/apps/CircleBypass/stores/FieldStore";
 import type { ObstacleModel } from "~/apps/CircleBypass/models/ObstacleModel";
 import type { RingModel } from "~/apps/CircleBypass/models/RingModel";
 import "./Obstacle.scss";
